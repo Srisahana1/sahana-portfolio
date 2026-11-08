@@ -2,6 +2,8 @@
 
 The production build was tested under the repository prefix `/sahana-portfolio/`, matching GitHub Pages project hosting.
 
+The site was also published and checked at [the live GitHub Pages URL](https://srisahana1.github.io/sahana-portfolio/). Live checks covered the portrait, fonts, six article covers, the lazy project architecture chunk, and refresh with a section fragment. The deployment workflow validates source and builds before publishing; its actions use the Node 24 runtime.
+
 ## Completed checks
 
 - ESLint, TypeScript, and Vite production build passed.
