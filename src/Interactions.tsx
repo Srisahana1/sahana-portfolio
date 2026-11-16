@@ -1,4 +1,40 @@
-import { useEffect, useRef, useState, type PropsWithChildren, type HTMLAttributes, type AnchorHTMLAttributes, type RefObject } from 'react';
+import { useEffect, useRef, useState, type PropsWithChildren, type HTMLAttributes, type AnchorHTMLAttributes, type RefObject, type PointerEvent as ReactPointerEvent } from 'react';
+
+// Batch decorative card updates into one paint; pointer movement never changes React state.
+export function useProjectHighlight() {
+  const frame = useRef(0);
+  const bounds = useRef<DOMRect | null>(null);
+  const point = useRef({ x: 0, y: 0 });
+  useEffect(() => () => cancelAnimationFrame(frame.current), []);
+  const reset = (event: ReactPointerEvent<HTMLElement>) => {
+    cancelAnimationFrame(frame.current);
+    frame.current = 0;
+    bounds.current = null;
+    for (const key of ['--tilt-x', '--tilt-y', '--px', '--py']) event.currentTarget.style.removeProperty(key);
+  };
+  return {
+    onPointerEnter: (event: ReactPointerEvent<HTMLElement>) => { bounds.current = event.currentTarget.getBoundingClientRect(); },
+    onPointerMove: (event: ReactPointerEvent<HTMLElement>) => {
+      if (event.pointerType !== 'mouse' || !matchMedia('(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)').matches) return;
+      const element = event.currentTarget;
+      point.current = { x: event.clientX, y: event.clientY };
+      if (frame.current) return;
+      frame.current = requestAnimationFrame(() => {
+        frame.current = 0;
+        const box = bounds.current;
+        if (!box) return;
+        const x = Math.max(0, Math.min(1, (point.current.x - box.left) / box.width));
+        const y = Math.max(0, Math.min(1, (point.current.y - box.top) / box.height));
+        element.style.setProperty('--px', `${x * 100}%`);
+        element.style.setProperty('--py', `${y * 100}%`);
+        element.style.setProperty('--tilt-x', `${(.5 - y) * 1.2}deg`);
+        element.style.setProperty('--tilt-y', `${(x - .5) * 1.2}deg`);
+      });
+    },
+    onPointerLeave: reset,
+    onPointerCancel: reset,
+  };
+}
 
 export function centerFlowNode(rail: HTMLElement, node: HTMLElement) {
   const railBox = rail.getBoundingClientRect();
@@ -15,7 +51,10 @@ export function useFlowPlayback(steps: number, root: RefObject<HTMLElement>) {
   useEffect(() => {
     const element = root.current;
     if (!element) return;
-    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { threshold: .1 });
+    const headerHeight = document.querySelector('header')?.getBoundingClientRect().height ?? 0;
+    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting && entry.intersectionRatio >= .1), {
+      threshold: [0, .1], rootMargin: `-${headerHeight}px 0px 0px 0px`,
+    });
     observer.observe(element);
     const visibility = () => setPageVisible(!document.hidden);
     document.addEventListener('visibilitychange', visibility);
@@ -94,23 +133,32 @@ export function Cursor() {
   const core = useRef<HTMLDivElement>(null);
   const ring = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (!matchMedia('(hover:hover) and (pointer:fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const enabled = matchMedia('(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)');
     let x = 0, y = 0, rx = 0, ry = 0, frame = 0;
-    const hide = () => { core.current?.classList.remove('visible'); ring.current?.classList.remove('visible'); };
+    let visible = false;
+    const hide = () => {
+      visible = false;
+      cancelAnimationFrame(frame); frame = 0;
+      core.current?.classList.remove('visible'); ring.current?.classList.remove('visible');
+    };
+    const preference = () => { document.documentElement.classList.toggle('has-cursor', enabled.matches); hide(); };
     const tick = () => {
-      rx += (x - rx) * .34;
-      ry += (y - ry) * .34;
+      rx += (x - rx) * .65;
+      ry += (y - ry) * .65;
       if (ring.current) ring.current.style.transform = `translate3d(${rx}px,${ry}px,0)`;
       if (Math.abs(x - rx) + Math.abs(y - ry) > .1) frame = requestAnimationFrame(tick);
       else frame = 0;
     };
     const move = (event: PointerEvent) => {
-      if (event.pointerType !== 'mouse') { hide(); return; }
+      if (!enabled.matches || event.pointerType !== 'mouse') { hide(); return; }
       const target = event.target as HTMLElement;
+      // Native dialogs occupy the browser's top layer, above decorative page cursors.
+      if (target.closest('dialog')) { hide(); return; }
       const text = target.closest('p,h1,h2,h3,h4,input,textarea,[contenteditable]');
-      const interactive = target.closest('a,button');
+      const interactive = target.closest('a,button,summary');
       if (text && !interactive) { hide(); return; }
       x = event.clientX; y = event.clientY;
+      if (!visible) { rx = x; ry = y; visible = true; }
       const state = (target.closest('[data-cursor]') as HTMLElement | null)?.dataset.cursor
         || (target.closest('a[target="_blank"]') ? 'open' : interactive ? 'link' : 'default');
       for (const element of [core.current, ring.current]) {
@@ -121,12 +169,14 @@ export function Cursor() {
       if (core.current) core.current.style.transform = `translate3d(${x}px,${y}px,0)`;
       if (!frame) frame = requestAnimationFrame(tick);
     };
-    document.documentElement.classList.add('has-cursor');
+    preference();
+    enabled.addEventListener('change', preference);
     window.addEventListener('pointermove', move, { passive: true });
     document.addEventListener('pointerleave', hide);
     window.addEventListener('blur', hide);
     return () => {
       cancelAnimationFrame(frame);
+      enabled.removeEventListener('change', preference);
       document.documentElement.classList.remove('has-cursor');
       window.removeEventListener('pointermove', move);
       document.removeEventListener('pointerleave', hide);

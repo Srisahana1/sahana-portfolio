@@ -1,35 +1,34 @@
-# V3 validation
+# V4 validation
 
-The production build was tested under the repository prefix `/sahana-portfolio/`, matching GitHub Pages project hosting.
+November 15, 2026. The production build is tested under `/sahana-portfolio/`, matching GitHub Pages project hosting. The Vite base (`./`), dependency versions, build configuration, and deployment workflow are preserved.
 
-The site was also published and checked at [the live GitHub Pages URL](https://srisahana1.github.io/sahana-portfolio/). Live checks covered the portrait, fonts, six article covers, the lazy project architecture chunk, and refresh with a section fragment. The deployment workflow validates source and builds before publishing; its actions use the Node 24 runtime.
+## Source and content
 
-## Completed checks
+- The owner's original photograph remains unmodified, in its existing 24,222-byte WebP encoding. The 3:4 presentation measures 160 × 213px on desktop and 120 × 160px on phones. `--portrait-position` controls the crop without image distortion.
+- The article component, article data, six thumbnails, article CSS, and Writing navigation are removed. Exactly one Medium profile link remains, in the contact area; no article feed is fetched.
+- All four GitHub projects, their source links, architecture descriptions, approved contact details, and five anonymized career roles remain.
+- The 20 technology chips provide short explanatory notes using buttons with pressed state and a live description. They work with touch and keyboard input.
 
-- ESLint, TypeScript, and Vite production build passed.
-- Chrome desktop (1440 × 1000) and phone emulation (390 × 844) passed interaction checks.
-- All four project dialogs, their stage controls, playback/pause, keyboard navigation, text alternatives, Escape/close controls, and focus restoration passed.
-- Native horizontal touch swipes and vertical page scrolling over diagrams passed. No global touch cancellation or wheel interception is used.
-- Architecture playback stops advancing offscreen. The architecture module is fetched on first project open, not during initial page load.
-- All 20 expertise skills, six article cards, five anonymized career roles, approved contact links, and copy-email feedback were checked.
-- Reduced motion and URL-fragment refresh passed.
-- No page overflow was found at widths 320, 375, 620, 768, 850, 1024, 1280, or 1920 pixels.
-- Axe checks against WCAG A/AA rules found no violations on the tested desktop and phone pages and project dialogs. Automated checks do not replace manual accessibility evaluation.
-- Screenshot review covered the hero, full page, writing gallery, and project dialog. A masked-heading reveal issue discovered during review was corrected and retested.
+## Build and performance
 
-## Local performance observations
+- ESLint, TypeScript, and the Vite production build pass.
+- Main JavaScript: approximately 59.53 KB gzip; CSS: 10.48 KB gzip. The project architecture module remains a separate 2.99 KB gzip chunk, loaded on project open.
+- The six removed thumbnails and unused large portrait total 370,784 bytes. The build emits only the small portrait and the existing self-hosted fonts as image/font assets.
+- Project lighting and tilt update through refs and requestAnimationFrame without pointer-driven React renders. The cursor core tracks input directly; its ring settles quickly and stops requesting frames.
+- Native scrolling remains in control. There are no wheel/touchmove interceptors, scroll engines, forced scroll snapping, or new dependencies.
+- Architecture playback requires at least 10% visible area below the sticky header, and suspends while the browser document is hidden.
+- Reduced motion disables decorative animation, portrait/card transforms, and the custom cursor. The cursor responds when the preference changes at runtime. Native pointers remain visible inside top-layer project dialogs.
 
-One fresh-load Chrome probe against the local production server recorded:
+Bundle and asset sizes are measured build outputs, not runtime performance scores. No Lighthouse or field Core Web Vitals score is claimed.
 
-| Observation | Desktop | Phone emulation |
-| --- | --- | --- |
-| Observed LCP | 1.34 s | 1.16 s |
-| Observed CLS | 0.000083 | 0 |
-| Long tasks over 50 ms during initial load | 0 | 0 |
-| Third-party resource requests | 0 | 0 |
+## Browser checks
 
-Desktop wheel-event dispatch to the first scroll event measured 0.5 ms in this probe. This measures the document event path, not physical input-device latency.
+- Chrome desktop (1440 × 1000) and phone emulation (390 × 844): portrait dimensions, project filters, all four dialogs, architecture stages, playback/pause, text alternatives, Escape/close controls, and focus restoration.
+- Native horizontal touch swipes and vertical page scrolling over architecture diagrams; mobile navigation and copy-email feedback.
+- Technology categories and selected-chip explanations; keyboard tab controls and visible focus indicators.
+- Reduced motion, runtime preference changes, section-fragment refresh, and all remaining internal link targets.
+- Responsive overflow checks at widths 320, 375, 620, 768, 850, 1024, 1280, and 1920px.
+- Axe WCAG A/AA automated checks on desktop, phone, and project dialogs. Automated checks do not establish full accessibility conformance.
+- Desktop and phone screenshots of the hero, full page, project dialog, and contact links.
 
-These are local, single-run lab observations without network or CPU throttling. They are not field Core Web Vitals, Lighthouse scores, or a before/after performance claim.
-
-The main JavaScript bundle is about 60.2 KB gzip, with the project architecture experience in a separate approximately 3.0 KB gzip chunk. Responsive hero photographs are approximately 24 KB and 85 KB. Fonts and article covers are served from the same origin.
+The browser checks use local Chrome and phone emulation, not physical mobile hardware. Publishing is verified separately through GitHub Actions and a smoke test of the public GitHub Pages URL.

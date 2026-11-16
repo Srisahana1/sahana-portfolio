@@ -17,14 +17,7 @@ Diagrams simplify the source for explanation. RAG evaluation is a separate workf
 
 ## Medium
 
-All six URLs and displayed reading times were checked against the public articles. The site includes titles, short descriptions, and optimized cover images, with links to the original articles rather than copied article bodies.
-
-- [The AI Engineer Title Is Becoming Meaningless — And the Industry Knows It](https://medium.com/@ssahana1703/the-ai-engineer-title-is-becoming-meaningless-and-the-industry-knows-it-6b26e90fe71f) — 6 min
-- [Why LLM Evaluation Is the Missing Piece in Most AI Projects](https://medium.com/@ssahana1703/why-llm-evaluation-is-the-missing-piece-in-most-ai-projects-30b70c086cdd) — 8 min
-- [I Built a Production-Style RAG Knowledge Assistant with Python, ChromaDB, FastAPI, and Llama 3.2](https://medium.com/@ssahana1703/i-built-a-production-style-rag-knowledge-assistant-with-python-chromadb-fastapi-and-llama-3-2-284e073b0f67) — 10 min
-- [I Built My First MCP Server in Python — Here's What I Learned](https://medium.com/@ssahana1703/i-built-my-first-mcp-server-in-python-heres-what-i-learned-7b915bd8f031) — 6 min
-- [AI Agents Are Replacing Chatbots: What Agentic AI Actually Means in 2026](https://medium.com/@ssahana1703/ai-agents-are-replacing-chatbots-what-agentic-ai-actually-means-in-2026-bde0df2f8969) — 10 min
-- [ChatGPT vs Claude vs Gemini: Which AI Should You Actually Use in 2026?](https://medium.com/@ssahana1703/chatgpt-vs-claude-vs-gemini-which-ai-should-you-actually-use-in-2026-dd793e8a9d0b) — 7 min
+V4, November 15, 2026: individual article content and thumbnails were removed at the owner's request. The only Medium destination is the approved [profile](https://medium.com/@ssahana1703), presented in the contact area. No Medium feed is fetched.
 
 ## Design references
 

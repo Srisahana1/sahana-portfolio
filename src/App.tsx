@@ -1,47 +1,34 @@
 import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { ArrowDown, ArrowRight, ArrowUpRight, BookOpen, Check, Copy, Github, Linkedin, Menu, Phone, X } from 'lucide-react';
 import ArchitectureLab from './ArchitectureLab';
-import Writing, { medium } from './Writing';
 import { Expertise, CareerTimeline } from './Expertise';
-import { Cursor, MagneticLink, useSectionReveals } from './Interactions';
+import { Cursor, MagneticLink, useProjectHighlight, useSectionReveals } from './Interactions';
 import { projects, type Project } from './data';
-import portrait from './assets/profile.webp';
 import portraitSmall from './assets/profile-small.webp';
 
 const ProjectArchitecture = lazy(() => import('./ProjectArchitecture'));
+const medium = 'https://medium.com/@ssahana1703';
 
 function SectionLabel({ number, title, aside }: { number: string; title: string; aside: string }) {
   return <div className="section-kicker"><span>{number} / {title}</span><span className="rule"/><span>{aside}</span></div>;
 }
 
 function Hero() {
-  const photo = useRef<HTMLElement>(null);
-  const reset = () => {
-    photo.current?.style.setProperty('--photo-x', '0deg');
-    photo.current?.style.setProperty('--photo-y', '0deg');
-  };
   return <section id="hero" className="hero" aria-labelledby="hero-title">
     <div className="hero-grid" aria-hidden="true"/>
     <div className="hero-layout wrap">
       <div className="hero-content">
         <div className="eyebrow"><span className="live-dot"/> AI SYSTEMS / HUMAN INTENT <span className="eyebrow-line"/></div>
         <p className="hero-intro">Hi, I’m Sahana.</p>
-        <h1 id="hero-title" aria-label="Engineering Intelligence. Building What Comes Next."><span className="hero-line"><span>Engineering</span></span><span className="hero-line"><span>Intelligence<span className="accent">.</span></span></span><span className="hero-line hero-muted"><span>Building What</span></span><span className="hero-line hero-muted"><span>Comes Next<span className="accent">.</span></span></span></h1>
+        <h1 id="hero-title"><span className="hero-line"><span>Engineering Intelligence<span className="accent">.</span></span></span><span className="hero-line hero-muted"><span>Building What Comes Next<span className="accent">.</span></span></span></h1>
         <p className="hero-subtitle">Senior AI/ML Engineer <span>|</span> Generative AI <span>|</span> Agentic AI <span>|</span> Enterprise AI Architecture</p>
         <p className="hero-copy">12+ years of experience building software, machine learning platforms, and production-ready AI systems across complex enterprise environments.</p>
         <div className="hero-actions"><MagneticLink className="button button-primary" href="#work">Explore Projects <ArrowDown size={17}/></MagneticLink><a className="button button-ghost" href="#contact">Connect With Me <ArrowUpRight size={17}/></a></div>
-        <div className="hero-socials"><span>ELSEWHERE</span><a href="https://github.com/Srisahana1" target="_blank" rel="noreferrer" aria-label="Sahana on GitHub"><Github size={16}/></a><a href="https://www.linkedin.com/in/sahana-s-k-7308a1330/" target="_blank" rel="noreferrer" aria-label="Sahana on LinkedIn"><Linkedin size={16}/></a><a href={medium} target="_blank" rel="noreferrer" aria-label="Sahana on Medium"><BookOpen size={16}/><span>Medium</span><ArrowUpRight size={12}/></a></div>
+        <div className="hero-socials"><span>ELSEWHERE</span><a href="https://github.com/Srisahana1" target="_blank" rel="noreferrer" aria-label="Sahana on GitHub"><Github size={16}/></a><a href="https://www.linkedin.com/in/sahana-s-k-7308a1330/" target="_blank" rel="noreferrer" aria-label="Sahana on LinkedIn"><Linkedin size={16}/></a></div>
       </div>
-      <figure className="hero-portrait" ref={photo} onPointerMove={event => {
-        if (event.pointerType !== 'mouse' || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        const rect = event.currentTarget.getBoundingClientRect();
-        event.currentTarget.style.setProperty('--photo-x', `${((event.clientY - rect.top) / rect.height - .5) * -3}deg`);
-        event.currentTarget.style.setProperty('--photo-y', `${((event.clientX - rect.left) / rect.width - .5) * 3}deg`);
-      }} onPointerLeave={reset}>
-        <div className="portrait-topline"><span>THE HUMAN BEHIND THE SYSTEMS</span><span>↗</span></div>
-        <div className="portrait-image"><img src={portrait} srcSet={`${portraitSmall} 480w, ${portrait} 900w`} sizes="(max-width: 620px) 87vw, (max-width: 1000px) 42vw, 430px" width="900" height="1123" fetchPriority="high" alt="Sahana, AI/ML engineer, wearing a black blazer and smiling"/><span className="portrait-corner corner-top"/><span className="portrait-corner corner-bottom"/></div>
-        <figcaption><div><strong>Sahana</strong><span>AI / ML ENGINEER</span></div><a href="#about" className="portrait-about" aria-label="More about Sahana"><ArrowDown size={18}/></a></figcaption>
-        <div className="portrait-sticker"><span className="live-dot"/><span>HUMAN CURIOSITY.<br/><strong>ENGINEERED INTELLIGENCE.</strong></span></div>
+      <figure className="hero-portrait">
+        <div className="portrait-image"><img src={portraitSmall} width="480" height="599" fetchPriority="high" alt="Sahana, AI/ML engineer, wearing a black blazer and smiling"/><span className="portrait-corner corner-top"/><span className="portrait-corner corner-bottom"/></div>
+        <figcaption><strong>Sahana</strong><span>AI / ML ENGINEER</span><a className="portrait-about" href="#about">Meet the engineer <ArrowDown size={12}/></a></figcaption>
       </figure>
     </div>
     <div className="hero-bottom wrap"><a href="#about">A LITTLE MORE ABOUT ME <ArrowDown size={12}/></a><span>GENERATIVE AI &nbsp;/&nbsp; AGENTIC AI &nbsp;/&nbsp; MLOPS</span></div>
@@ -49,12 +36,8 @@ function Hero() {
 }
 
 function ProjectCard({ project, index, open }: { project: Project; index: number; open: () => void }) {
-  return <article className={`project-card card-${index}`} onPointerMove={event => {
-    if (event.pointerType !== 'mouse' || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const box = event.currentTarget.getBoundingClientRect();
-    event.currentTarget.style.setProperty('--px', `${(event.clientX - box.left) / box.width * 100}%`);
-    event.currentTarget.style.setProperty('--py', `${(event.clientY - box.top) / box.height * 100}%`);
-  }}>
+  const highlight = useProjectHighlight();
+  return <article className={`project-card card-${index}`} {...highlight}>
     <div className="card-meta"><span>0{index + 1} / {project.category}</span><span>PUBLIC PROJECT ↗</span></div>
     <button className="card-open" data-cursor="view" onClick={open} aria-label={`Explore ${project.title}`} aria-haspopup="dialog">
       <div className={`project-art art-${index}`} aria-hidden="true"><div className="art-grid"/><div className="art-line line-a"/><div className="art-line line-b"/>
@@ -109,7 +92,7 @@ function Contact() {
     } catch { setCopyError(true); }
   };
   return <section className="contact section" id="contact"><div className="wrap">
-    <SectionLabel number="05" title="LET’S CONNECT" aside="BUILD SOMETHING MEANINGFUL"/>
+    <SectionLabel number="04" title="LET’S CONNECT" aside="BUILD SOMETHING MEANINGFUL"/>
     <div className="contact-main reveal"><div><div className="overline">GOOD SYSTEMS START WITH A CONVERSATION</div><h2>Have a complex<br/><span>problem in mind?</span></h2><p>Let’s talk about what we could build.</p></div><MagneticLink className="round-arrow" href="mailto:Sahanak9403@gmail.com" aria-label="Send email"><ArrowUpRight size={32}/></MagneticLink></div>
     <div className="email-line"><a href="mailto:Sahanak9403@gmail.com">Sahanak9403@gmail.com <ArrowUpRight size={20}/></a><button onClick={copy} aria-label={copied ? 'Email copied' : 'Copy email address'}>{copied ? <Check size={17}/> : <Copy size={17}/>}<span aria-live="polite">{copied ? 'Copied!' : 'Copy email'}</span></button></div>
     {copyError && <p className="copy-error" role="status">Select the email address above to copy it, or open your email app.</p>}
@@ -154,7 +137,7 @@ export default function App() {
   const visibleProjects = projects.map((item, index) => ({ item, index })).filter(({ index }) => filter === 'All projects' || (filter === 'RAG' && index === 0) || (filter === 'Agents' && index > 1) || (filter === 'MCP' && index === 1));
   return <><a className="skip-link" href="#main">Skip to content</a><Cursor/>
     <header className="header"><a className="brand" href="#hero" aria-label="Sahana home"><span className="brand-symbol">✳</span><span>SAHANA <i>/</i> AI SYSTEMS<small>ENGINEERED FOR IMPACT</small></span></a>
-      <nav ref={navigation} id="main-navigation" className={menu ? 'open' : ''} aria-label="Main navigation">{[['about', 'About'], ['work', 'Projects'], ['lab', 'Architecture'], ['writing', 'Writing'], ['contact', 'Contact']].map(([id, label]) => <a key={id} className={active === id ? 'active' : ''} aria-current={active === id ? 'location' : undefined} href={`#${id}`} onClick={() => setMenu(false)}>{label}</a>)}<MagneticLink className="nav-cta" href="mailto:Sahanak9403@gmail.com">LET’S TALK <ArrowUpRight size={15}/></MagneticLink></nav>
+      <nav ref={navigation} id="main-navigation" className={menu ? 'open' : ''} aria-label="Main navigation">{[['about', 'About'], ['work', 'Projects'], ['lab', 'Architecture'], ['contact', 'Contact']].map(([id, label]) => <a key={id} className={active === id ? 'active' : ''} aria-current={active === id ? 'location' : undefined} href={`#${id}`} onClick={() => setMenu(false)}>{label}</a>)}<MagneticLink className="nav-cta" href="mailto:Sahanak9403@gmail.com">LET’S TALK <ArrowUpRight size={15}/></MagneticLink></nav>
       <button ref={toggle} className="menu-toggle" aria-controls="main-navigation" aria-expanded={menu} aria-label={menu ? 'Close navigation' : 'Open navigation'} onClick={event => {
         setMenu(value => !value);
         if (!menu && event.detail === 0) requestAnimationFrame(() => navigation.current?.querySelector<HTMLAnchorElement>('a')?.focus());
@@ -174,7 +157,6 @@ export default function App() {
       <section className="lab section" id="lab"><div className="wrap"><SectionLabel number="03" title="ARCHITECTURE LAB" aside="AN INTERACTIVE LOOK INSIDE"/>
         <div className="section-heading reveal"><div><div className="overline">COMPLEXITY, MADE VISIBLE</div><h2>Inside the <span>system.</span></h2></div><p>Explore illustrative patterns, one decision at a time. Follow the flow, select a node, and see why each stage matters.</p></div><ArchitectureLab/>
       </div></section>
-      <Writing/>
       <Contact/>
     </main>
     <ProjectDialog index={project} close={() => setProject(null)}/>
