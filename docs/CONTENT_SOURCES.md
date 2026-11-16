@@ -15,6 +15,8 @@ READMEs and relevant source files were reviewed at these commits:
 
 Diagrams simplify the source for explanation. RAG evaluation is a separate workflow. The multi-tool project's Pydantic validation applies to the decision before tool execution; there is no invented post-execution validation node. Repository test descriptions describe checked-in tests, not test runs performed by this portfolio site.
 
+For the Neural Constellation update, the listed pipeline, MCP server, and two agent workflow files were inspected again. Three-node card previews summarize representative stages rather than claiming to show the complete architecture. The complete existing walkthroughs remain available in project details. The ambient hero and section constellations are decorative artwork, not technical system diagrams.
+
 ## Medium
 
 V4, November 15, 2026: individual article content and thumbnails were removed at the owner's request. The only Medium destination is the approved [profile](https://medium.com/@ssahana1703), presented in the contact area. No Medium feed is fetched.

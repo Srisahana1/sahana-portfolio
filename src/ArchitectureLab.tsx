@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, Pause, Play } from 'lucide-react';
 import { labs } from './data';
 import { SwipeRail, useFlowPlayback, centerFlowNode } from './Interactions';
+import { SignalConnection, SignalNode } from './Signals';
 
 export default function ArchitectureLab() {
   const [lab, setLab] = useState(0);
@@ -33,9 +34,9 @@ export default function ArchitectureLab() {
     <div className="lab-body" id="lab-panel" role="tabpanel" aria-labelledby={`lab-tab-${lab}`}>
       <div className="lab-intro"><div><div className="overline">REFERENCE MODEL / 0{lab + 1}</div><h3>{flow.name}</h3></div><span className="swipe-hint">SWIPE OR SELECT A STAGE <ArrowRight size={13}/></span></div>
       <SwipeRail className="lab-nodes" aria-label={`${flow.name} stages`}>
-        <svg className="lab-flow-signal" viewBox="0 0 1000 10" preserveAspectRatio="none" aria-hidden="true"><path d="M0 5 H1000"/></svg>
+        <svg className="lab-connections" viewBox="0 0 1000 10" preserveAspectRatio="none" aria-hidden="true"><SignalConnection d="M0 5 H1000"/></svg>
         {flow.nodes.map((node, index) => <button key={node} data-cursor="explore" className={stage === index ? 'selected' : index < stage ? 'completed' : ''} aria-label={`Stage ${index + 1}: ${node}`} aria-pressed={stage === index}
-          onClick={() => select(index)}><span className="lab-node-num">0{index + 1}</span><span className="lab-node-icon" aria-hidden="true"><span>{stage === index ? '✳' : '+'}</span></span><span>{node}</span></button>)}
+          onClick={() => select(index)}><span className="lab-node-num">0{index + 1}</span><SignalNode className="lab-node-icon" active={stage === index}/><span>{node}</span></button>)}
       </SwipeRail>
       <div className="lab-detail">
         <span className="stage-count">0{stage + 1}<small>/ 0{flow.nodes.length}</small></span>

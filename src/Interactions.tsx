@@ -183,7 +183,7 @@ export function Cursor() {
       window.removeEventListener('blur', hide);
     };
   }, []);
-  return <><div ref={ring} className="cursor-ring" aria-hidden="true"/><div ref={core} className="cursor-core" aria-hidden="true"><span>✣</span><b className="cursor-label view">VIEW</b><b className="cursor-label explore">EXPLORE</b><b className="cursor-label open">OPEN</b><b className="cursor-label drag">↔ DRAG</b></div></>;
+  return <><div ref={ring} className="cursor-ring" aria-hidden="true"/><div ref={core} className="cursor-core" aria-hidden="true"><span className="signal-cursor-diamond"/><b className="cursor-label view">VIEW</b><b className="cursor-label explore">EXPLORE</b><b className="cursor-label open">OPEN</b><b className="cursor-label drag">↔ DRAG</b></div></>;
 }
 
 export function useSectionReveals() {

@@ -28,19 +28,12 @@
 .timeline-specialty { font: 500 8px var(--font-mono); letter-spacing: .1em; color: var(--accent); padding: 7px 9px; border: 1px solid var(--accent-border); }
 .architecture-loading { min-height: 390px; display: grid; place-items: center; font: 400 12px var(--font-mono); color: var(--muted); background: var(--surface-deep); border: 1px solid var(--border); margin-block: var(--space-8); border-radius: var(--radius); }
 .diagram-heading>span:first-child { display: flex; align-items: center; gap: var(--space-2); }
-.lab-flow-signal { position: absolute; top: 101px; left: 60px; width: calc(100% - 120px); min-width: 650px; height: 4px; pointer-events: none; opacity: 0; }
-.lab-flow-signal path { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 50 950; }
-.lab-shell[data-playing=true] .lab-flow-signal { opacity: 1; }
-.lab-shell[data-playing=true] .lab-flow-signal path { animation: lab-signal 1800ms linear infinite; }
 .diagram-viewport { padding-top: var(--space-6); }
 .flow-canvas { width: 100%; position: relative; height: 176px; }
 .flow-connections { position: absolute; inset: 0; width: 100%; height: 170px; overflow: visible; pointer-events: none; }
 .flow-connections path { fill: none; stroke-width: 1; }
-.flow-track { stroke: var(--border-strong); }
 .flow-traversed { stroke: var(--accent); opacity: .75; }
-.flow-signal { stroke: var(--accent); stroke-width: 2px!important; stroke-dasharray: 4 24; opacity: 0; }
 .flow-return { stroke: var(--violet-ink); stroke-dasharray: 4 5; opacity: .65; color: var(--violet-ink); }
-.flow-canvas[data-playing=true] .flow-signal { opacity: .9; animation: flow-signal 1200ms linear infinite; }
 .flow-connections text { font: 400 7px var(--font-mono); letter-spacing: .06em; fill: var(--subtle); }
 .diagram-nodes { display: grid; position: relative; z-index: 1; }
 .diagram-node { display: flex; flex-direction: column; align-items: center; gap: 14px; background: none; border: 0; padding: 0 var(--space-2); min-height: 118px; touch-action: pan-x pan-y; }
@@ -63,8 +56,6 @@
 .architecture-text li { padding: var(--space-2) 0 var(--space-2) var(--space-2); }
 .architecture-text strong { font-weight: 500; color: var(--text); }
 .architecture-text p { color: var(--muted); font-size: 12px; line-height: 1.8; margin: 6px 0 0; }
-@keyframes flow-signal { to { stroke-dashoffset: -56; } }
-@keyframes lab-signal { from { stroke-dashoffset: 50; } to { stroke-dashoffset: -950; } }
 @keyframes capability-in { from { opacity: .4; translate: 8px 0; } to { opacity: 1; translate: 0 0; } }
 @media (hover:hover) and (pointer:fine) {
   .capability-tabs button:hover { color: var(--text); }
@@ -82,7 +73,6 @@
   .career-timeline h3 { font-size: 14px; }
 }
 @media (max-width:620px) {
-  .lab-flow-signal { top: 94px; }
   .capability-layout { grid-template-columns: 1fr; gap: var(--space-5); margin-top: var(--space-6); }
   .capability-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); }
   .capability-tabs button { min-height: 58px; border: 1px solid var(--border); padding: 10px 12px; border-radius: var(--radius); font-size: 11px; gap: var(--space-2); }
@@ -102,7 +92,6 @@
   .flow-controls { gap: var(--space-3); }
 }
 @media (prefers-reduced-motion:reduce) {
-  .flow-signal,.lab-flow-signal { display: none; }
   .career-timeline li::after { transition: none; }
   .reveal-pending { clip-path: none; }
   .section-heading.reveal-pending>div,.section-heading.reveal-pending>p { clip-path: none; }

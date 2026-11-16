@@ -1,21 +1,25 @@
-import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { ArrowDown, ArrowRight, ArrowUpRight, BookOpen, Check, Copy, Github, Linkedin, Menu, Phone, X } from 'lucide-react';
 import ArchitectureLab from './ArchitectureLab';
 import { Expertise, CareerTimeline } from './Expertise';
 import { Cursor, MagneticLink, useProjectHighlight, useSectionReveals } from './Interactions';
 import { projects, type Project } from './data';
 import portraitSmall from './assets/profile-small.webp';
+import NeuralConstellation from './NeuralConstellation';
+import ProjectNetworkPreview from './ProjectNetworkPreview';
+import { SectionSignal } from './Signals';
 
 const ProjectArchitecture = lazy(() => import('./ProjectArchitecture'));
 const medium = 'https://medium.com/@ssahana1703';
 
 function SectionLabel({ number, title, aside }: { number: string; title: string; aside: string }) {
-  return <div className="section-kicker"><span>{number} / {title}</span><span className="rule"/><span>{aside}</span></div>;
+  return <div className="section-kicker"><span>{number} / {title}</span><span className="rule"/><SectionSignal/><span>{aside}</span></div>;
 }
 
 function Hero() {
   return <section id="hero" className="hero" aria-labelledby="hero-title">
     <div className="hero-grid" aria-hidden="true"/>
+    <NeuralConstellation/>
     <div className="hero-layout wrap">
       <div className="hero-content">
         <div className="eyebrow"><span className="live-dot"/> AI SYSTEMS / HUMAN INTENT <span className="eyebrow-line"/></div>
@@ -39,10 +43,8 @@ function ProjectCard({ project, index, open }: { project: Project; index: number
   const highlight = useProjectHighlight();
   return <article className={`project-card card-${index}`} {...highlight}>
     <div className="card-meta"><span>0{index + 1} / {project.category}</span><span>PUBLIC PROJECT ↗</span></div>
+    <ProjectNetworkPreview index={index} title={project.title}/>
     <button className="card-open" data-cursor="view" onClick={open} aria-label={`Explore ${project.title}`} aria-haspopup="dialog">
-      <div className={`project-art art-${index}`} aria-hidden="true"><div className="art-grid"/><div className="art-line line-a"/><div className="art-line line-b"/>
-        <div className="art-box box-a">{['DOC', 'MCP', 'THINK', 'INPUT'][index]}</div><div className="art-box box-b">{['RANK', 'TOOLS', 'ACT', 'ROUTE'][index]}</div><div className="art-box box-c">{['ANSWER', 'DATA', 'OBSERVE', 'OUTPUT'][index]}</div><span className="art-mark">✳</span>
-      </div>
       <div className="card-copy"><div><h3>{project.title}</h3><p>{project.summary}</p></div><span className="card-arrow"><ArrowUpRight size={21}/></span></div>
       <span className="card-explore">View Details <span>+</span></span>
     </button>
@@ -152,7 +154,7 @@ export default function App() {
       <section className="work section" id="work"><div className="wrap"><SectionLabel number="02" title="SELECTED PROJECTS" aside="PUBLIC GITHUB REPOSITORIES"/>
         <div className="section-heading reveal"><div><div className="overline">BUILT TO EXPLORE</div><h2>Ideas, engineered<br/><span>into systems.</span></h2></div><p>Four public projects exploring retrieval, agent workflows, and the interfaces that connect intelligence to useful tools.</p></div>
         <div className="project-filter" role="group" aria-label="Filter projects">{['All projects', 'RAG', 'Agents', 'MCP'].map(item => <button key={item} aria-pressed={filter === item} onClick={() => setFilter(item)}>{item}{item === 'All projects' && <span>04</span>}</button>)}<span className="filter-count" role="status">{visibleProjects.length} {visibleProjects.length === 1 ? 'project' : 'projects'}</span></div>
-        <div className="project-grid" key={filter}>{visibleProjects.map(({ item, index }, order) => <div className="project-entry" style={{ '--entry': order } as CSSProperties} key={item.title}><ProjectCard project={item} index={index} open={() => setProject(index)}/></div>)}</div>
+        <div className="project-grid" key={filter}>{visibleProjects.map(({ item, index }) => <div className="project-entry" key={item.title}><ProjectCard project={item} index={index} open={() => setProject(index)}/></div>)}</div>
       </div></section>
       <section className="lab section" id="lab"><div className="wrap"><SectionLabel number="03" title="ARCHITECTURE LAB" aside="AN INTERACTIVE LOOK INSIDE"/>
         <div className="section-heading reveal"><div><div className="overline">COMPLEXITY, MADE VISIBLE</div><h2>Inside the <span>system.</span></h2></div><p>Explore illustrative patterns, one decision at a time. Follow the flow, select a node, and see why each stage matters.</p></div><ArchitectureLab/>

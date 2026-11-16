@@ -2,6 +2,7 @@ import { useEffect, useId, useRef } from 'react';
 import { ArrowLeft, ArrowRight, Pause, Play, Code2 } from 'lucide-react';
 import { SwipeRail, useFlowPlayback, centerFlowNode } from './Interactions';
 import { projects } from './data';
+import { SignalConnection, SignalNode } from './Signals';
 
 const flows = [
   { kind: 'rag', note: 'Ingestion builds the index. Evaluation is a separate workflow, shown with a dashed connection.', stages: [
@@ -58,9 +59,8 @@ export default function ProjectArchitecture({ index }: { index: number }) {
       <div className="flow-canvas" style={{ minWidth: `${width}px` }} data-playing={animating}>
         <svg className="flow-connections" viewBox={`0 0 ${width} 170`} preserveAspectRatio="none" aria-hidden="true">
           <defs><marker id={`${id}-arrow`} markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0 6 3 0 6" fill="none" stroke="currentColor"/></marker></defs>
-          <path className="flow-track" d={`M54 52 H${end}`}/>
+          <SignalConnection d={`M54 52 H${end}`}/>
           <path className="flow-traversed" d={`M54 52 H${54 + step * 108}`}/>
-          <path className="flow-signal" d={`M54 52 H${end}`}/>
           {flow.kind === 'rag' && <path className="flow-return" d={`M${end - 108} 52 H${end}`}/>}
           {flow.kind === 'react' && <><path className="flow-return" d="M486 80 V130 Q486 140 476 140 H172 Q162 140 162 130 V80" markerEnd={`url(#${id}-arrow)`}/><text x="324" y="158" textAnchor="middle">CONTINUE UNTIL TERMINATION</text></>}
           {flow.kind === 'mcp' && <><path className="flow-return" d={`M${end} 80 V130 Q${end} 140 ${end - 10} 140 H64 Q54 140 54 130 V80`} markerEnd={`url(#${id}-arrow)`}/><text x={width / 2} y="158" textAnchor="middle">RETURN TOOL RESULT TO CLIENT</text></>}
@@ -74,7 +74,7 @@ export default function ProjectArchitecture({ index }: { index: number }) {
           else return;
           event.preventDefault(); select(next);
           root.current?.querySelectorAll<HTMLButtonElement>('.diagram-node')[next]?.focus({ preventScroll: true });
-        }}><span className="diagram-node-index">0{nodeIndex + 1}</span><span className="diagram-shape" aria-hidden="true"><span>{step === nodeIndex ? '✳' : '+'}</span></span><span className="diagram-node-label">{name}</span></button>)}</div>
+        }}><span className="diagram-node-index">0{nodeIndex + 1}</span><SignalNode className="diagram-shape" active={step === nodeIndex}/><span className="diagram-node-label">{name}</span></button>)}</div>
       </div>
     </SwipeRail>
     <div className="project-stage-detail" aria-live={playing ? 'off' : 'polite'}><div><span>STAGE 0{step + 1}</span><strong>{flow.stages[step][0]}</strong></div><p>{flow.stages[step][1]}</p></div>

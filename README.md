@@ -1,4 +1,4 @@
-# Sahana — AI Systems Portfolio V4
+# Sahana — Neural Constellation Portfolio
 
 A static portfolio built with React, TypeScript, Vite, and Tailwind CSS 3. The site uses native scrolling, an owner-provided portrait, and the Obsidian / Electric Aqua / Deep Violet palette.
 
@@ -24,6 +24,9 @@ In Windows PowerShell with execution-policy restrictions, use `npm.cmd` in place
 
 ## Experience
 
+- A fixed, sparse Canvas 2D constellation forms behind the hero. Nearby nodes respond to the pointer with illumination and bounded signal pulses. Its single rendering loop stops offscreen, in hidden tabs, and with reduced motion; touch devices and unavailable Canvas use static SVG artwork.
+- The signal-emitter cursor uses a small aqua diamond. Section motifs, project previews, and architecture diagrams share reusable `SignalNode` and `SignalConnection` components.
+- Each project preview has three touch-friendly nodes with explanations and arrow-key controls. Card activation transmits a finite signal on hover or keyboard focus; no continuous project animation is needed.
 - Space Grotesk, Inter, and JetBrains Mono are self-hosted. Their licenses are included under `public/licenses/fonts`.
 - The original hero photograph uses a compact 24 KB WebP asset. Its 3:4 frame is 160px wide on desktop and 120px on phones, with configurable `--portrait-position` and a matching preload.
 - All four public GitHub projects include case studies and lazy-loaded SVG architecture walkthroughs with playback, keyboard controls, native touch swiping, and full text alternatives.
@@ -34,6 +37,8 @@ In Windows PowerShell with execution-policy restrictions, use `npm.cmd` in place
 - Professional experience contains role titles without employers, clients, dates, or locations.
 
 Public project content and illustrative architecture patterns are explicitly identified. Content sources and verification notes are in `docs`.
+
+The visual implementation is in `src/NeuralConstellation.tsx`, `src/Signals.tsx`, `src/ProjectNetworkPreview.tsx`, and `src/signals.css`. No animation library or WebGL dependency is required.
 
 ## GitHub Pages
 
