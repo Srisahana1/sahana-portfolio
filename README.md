@@ -24,6 +24,7 @@ In Windows PowerShell with execution-policy restrictions, use `npm.cmd` in place
 
 ## Experience
 
+- “Hi, I'm Sahana.” is the dominant, full-width hero heading: 140–180px on large desktops, 100–140px on laptops, 72–100px on tablets, and 56–72px on phones. Warm Pearl introduces the name in Liquid Copper, using genuine Inter 800/900 weights from a preloaded 24.9 KB subset. A fast mask reveal and one-time copper light sweep respect reduced motion.
 - A sparse Liquid Intelligence network forms behind the hero: curved copper connections carry bounded mint signals. The Canvas renderer reads the CSS palette on resize. Its single loop stops offscreen, in hidden tabs, and with reduced motion; touch devices and unavailable Canvas use static SVG artwork.
 - The custom copper diamond cursor turns mint on interactive elements. A custom Liquid Intelligence mark, metallic heading treatment, and asymmetric titanium cards complete the visual identity.
 - Section motifs, project previews, and architecture diagrams share reusable `SignalNode` and `SignalConnection` components. Native Web Animations replay finite mint pulses on section entry, hover, focus, and taps, including repeated taps on the same node. Signals cancel when hidden, offscreen, or disabled by motion preferences.

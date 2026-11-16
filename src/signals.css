@@ -11,9 +11,7 @@
 .constellation-coordinate { position: absolute; right: 6.5%; font: 400 7px var(--font-mono); letter-spacing: .16em; color: var(--subtle); }
 .coordinate-top { top: 32px; }
 .coordinate-bottom { bottom: 115px; }
-.hero-line>span { animation-delay: 360ms; }
-.hero-line:nth-child(2)>span { animation-delay: 420ms; }
-.hero-portrait { animation-delay: 520ms; }
+.hero-portrait { animation-delay: 0ms; }
 .hero-bottom { z-index: 1; }
 .signal-cursor-diamond { width: 7px; height: 7px; background: var(--accent); rotate: 45deg; box-shadow: 0 0 9px var(--accent-glow); }
 .signal-track,.signal-pulse { fill: none; vector-effect: non-scaling-stroke; }
@@ -24,7 +22,6 @@
 .liquid-mark { overflow: visible; }
 .liquid-mark-signal { fill: var(--signal); }
 .hero-edition { color: var(--subtle); font-size: 7px; letter-spacing: .15em; }
-.hero-line:first-child>span { background: linear-gradient(105deg,var(--text) 48%,var(--accent)); background-clip: text; -webkit-background-clip: text; color: transparent; }
 .cursor-core:not([data-state=default]) .signal-cursor-diamond { background: var(--signal); box-shadow: 0 0 8px var(--signal-soft); }
 .signal-node-shell { position: relative; width: 44px; height: 44px; display: grid; place-items: center; flex: none; border: 1px solid var(--accent-border); border-radius: 50%; background: var(--surface-deep); color: var(--accent); transition: border-color var(--fast),background var(--fast),box-shadow var(--fast); }
 .signal-node-shell::after { content: ''; position: absolute; inset: 5px; border: 1px solid currentColor; border-radius: 50%; opacity: .14; }
@@ -83,13 +80,11 @@
 }
 @media (hover:none), (pointer:coarse) {
   .project-network .signal-track { animation: none!important; }
-  .hero-line>span,.hero-portrait { animation-delay: 0ms; }
 }
 @media (prefers-reduced-motion:reduce) {
   .neural-constellation[data-canvas=true] .constellation-static { visibility: visible; }
   .neural-constellation canvas { display: none; }
   .signal-pulse { display: none; }
   .project-network .signal-track { animation: none; }
-  .hero-line>span,.hero-portrait { animation: none; }
   .about-grid.reveal-pending>div,.contact-main.reveal-pending h2 { clip-path: none; }
 }

@@ -25,4 +25,6 @@ V4, November 15, 2026: individual article content and thumbnails were removed at
 
 ## Design references
 
+The oversized greeting uses a Latin WOFF2 subset derived from [Inter's official Google Fonts distribution](https://github.com/google/fonts/tree/main/ofl/inter), pinned to optical size 32 and weight range 800–900. The subset is 24,856 bytes; the matching source license is included under `public/licenses/fonts/inter-hero-OFL.txt`. The original body-font files and portrait are unchanged.
+
 [Awwwards portfolio collection](https://www.awwwards.com/websites/portfolio/) and [Squarespace artists](https://www.squarespace.com/solutions/creative-services/artists) informed composition, hierarchy, and interaction quality. Their artwork and source code are not included.

@@ -21,11 +21,13 @@ function Hero() {
     <div className="hero-grid" aria-hidden="true"/>
     <NeuralConstellation/>
     <div className="hero-layout wrap">
-      <div className="hero-content">
+      <div className="hero-heading">
         <div className="eyebrow"><span className="live-dot"/> LIQUID INTELLIGENCE <span className="eyebrow-line"/><span className="hero-edition">ENGINEERED SYSTEMS / 01</span></div>
-        <p className="hero-intro">Hi, I’m Sahana.</p>
-        <h1 id="hero-title"><span className="hero-line"><span>Engineering Intelligence<span className="accent">.</span></span></span><span className="hero-line hero-muted"><span>Building What Comes Next<span className="accent">.</span></span></span></h1>
+        <h1 id="hero-title" aria-label="Hi, I'm Sahana."><span className="hero-greeting">Hi, I'm</span>{' '}<span className="hero-name">Sahana.<span className="hero-name-sweep" aria-hidden="true">Sahana.</span></span></h1>
+      </div>
+      <div className="hero-content">
         <p className="hero-subtitle">Senior AI/ML Engineer <span>|</span> Generative AI <span>|</span> Agentic AI <span>|</span> Enterprise AI Architecture</p>
+        <p className="hero-manifesto">Engineering Intelligence. Building What Comes Next.</p>
         <p className="hero-copy">12+ years of experience building software, machine learning platforms, and production-ready AI systems across complex enterprise environments.</p>
         <div className="hero-actions"><MagneticLink className="button button-primary" href="#work">Explore Projects <ArrowDown size={17}/></MagneticLink><a className="button button-ghost" href="#contact">Connect With Me <ArrowUpRight size={17}/></a></div>
         <div className="hero-socials"><span>ELSEWHERE</span><a href="https://github.com/Srisahana1" target="_blank" rel="noreferrer" aria-label="Sahana on GitHub"><Github size={16}/></a><a href="https://www.linkedin.com/in/sahana-s-k-7308a1330/" target="_blank" rel="noreferrer" aria-label="Sahana on LinkedIn"><Linkedin size={16}/></a></div>

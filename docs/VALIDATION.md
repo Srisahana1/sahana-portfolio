@@ -41,6 +41,18 @@ The original 24,222-byte portrait asset remains unchanged. The 3:4 frame measure
 
 One unthrottled three-second desktop probe sampled 181 Canvas callbacks: 0.3ms median and 0.6ms at the 95th percentile. Median frame interval was 16.7ms, with a 17.2ms 95th percentile. Callback timing measures JavaScript, not total GPU/compositor work; these local observations do not guarantee frame rates on other devices.
 
-The local regression probe recorded LCP of 1.252s on desktop and 1.148s in phone emulation, with CLS approximately 0.000132 and 0. Desktop recorded one 83ms initial long task; phone emulation recorded none. Both made zero third-party resource requests. These are single local samples without CPU/network throttling, not field Core Web Vitals or Lighthouse scores.
+Those Canvas timings predate the oversized greeting refinement; the background renderer is unchanged. No current field Core Web Vitals or Lighthouse score is claimed for the refined hero.
 
-Measured build outputs: main JavaScript 63.08 KB gzip; CSS 11.18 KB gzip; lazy project architecture 2.99 KB gzip. The architecture chunk is fetched on first project open. Existing portrait and self-hosted fonts are unchanged. Publishing is verified separately through GitHub Actions and live desktop/phone browser smoke tests.
+Measured current build outputs: main JavaScript 63.10 KB gzip; CSS 11.35 KB gzip; lazy project architecture 2.99 KB gzip. The architecture chunk is fetched on first project open. Existing portrait and body fonts are unchanged; the greeting adds a preloaded 24,856-byte Inter subset with genuine 800–900 weights. Publishing is verified separately through GitHub Actions and live desktop/phone browser smoke tests.
+
+## Oversized greeting refinement
+
+The semantic H1 is now “Hi, I'm Sahana.”, with Warm Pearl greeting text (weight 800) and a Liquid Copper name (weight 900). The heading spans both desktop grid columns. The professional subtitle, retained engineering statement, description, and original passport portrait sit below it. On phones the greeting and name stack, without shrinking the existing 120px photograph; the desktop photograph stays 160px wide.
+
+Font metadata inspection confirmed that the original Inter file stops at weight 700. The new licensed subset supports weights 800–900, with optical size pinned to 32. Browser checks confirm the real 800/900 face loads; synthetic font weight is disabled.
+
+The mask reveal takes 360ms with no entrance delay. A subtle 650ms light sweep runs once across the name, then becomes transparent. Reduced motion disables both effects, removes the mask, and keeps the heading readable.
+
+Production-prefix browser checks covered 18 viewport widths: 320, 360, 375, 390, 414, 620, 621, 768, 850, 1023, 1024, 1280, 1399, 1400, 1440, 1680, 1920, and 2560px. All passed font-range assertions, headline and word bounds, preserved portrait dimensions, supporting-text placement, dominance over other headings, and page-overflow checks. Example rendered sizes: 57.6px at 320px, 70.2px at 390px, 75.1px at 768px, 128px at 1280px, 151.2px at 1440px, and 180px at 1920px.
+
+Desktop and phone screenshots were reviewed. Axe WCAG A/AA checks found no violations on the tested page. CTA navigation, opening a project dialog, Escape, the single Medium action, fragment refresh, reduced motion, phone navigation, touch selection, and the mobile static network passed. No browser runtime errors or failed resource requests were observed. Device checks use emulation rather than physical mobile hardware.
