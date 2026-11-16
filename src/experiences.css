@@ -2,15 +2,15 @@
 .capability-layout { display: grid; grid-template-columns: minmax(220px,.8fr) minmax(0,1.6fr); gap: var(--space-12); margin-top: var(--space-8); }
 .capability-tabs { display: flex; flex-direction: column; align-self: start; }
 .capability-tabs button { display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); text-align: left; min-height: 58px; padding: var(--space-4) 0; border: 0; border-bottom: 1px solid var(--border); color: var(--muted); background: none; font-size: 13px; transition: color var(--fast),padding var(--fast); }
-.capability-tabs button[aria-selected=true] { color: var(--accent); border-color: var(--accent-border); padding-left: var(--space-3); }
+.capability-tabs button[aria-selected=true] { color: var(--signal); border-color: var(--signal-border); padding-left: var(--space-3); }
 .capability-panel { padding: var(--space-8); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); min-height: 280px; }
-.capability-panel:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+.capability-panel:focus-visible { outline: 2px solid var(--signal); outline-offset: 5px; }
 .capability-content { animation: capability-in 220ms var(--ease-out); }
 .capability-content h3 { font: 500 27px/1.2 var(--display); letter-spacing: -.035em; margin: var(--space-4) 0 var(--space-3); max-width: 420px; }
 .capability-content p { font-size: 13px; color: var(--muted); line-height: 1.8; max-width: 540px; }
 .capability-content .chips { margin-top: var(--space-6); }
 .capability-content .chip { min-height: 44px; background: transparent; transition: color var(--fast),border-color var(--fast),background var(--fast); }
-.capability-content .chip[aria-pressed=true] { color: var(--accent); border-color: var(--accent-border); background: var(--accent-soft); }
+.capability-content .chip[aria-pressed=true] { color: var(--accent); border-color: var(--accent-border); background: var(--signal-soft); }
 .capability-content .skill-note { min-height: 72px; margin-bottom: 0; padding-top: var(--space-4); border-top: 1px solid var(--border); font-size: 12px; }
 .skill-note strong { color: var(--text-secondary); font-weight: 500; }
 .experience-intro h3 { font: 500 30px/1.25 var(--display); letter-spacing: -.04em; margin: var(--space-5) 0 0; }
@@ -22,7 +22,7 @@
 .career-timeline li.timeline-active::after { transform: scaleY(1); }
 .career-timeline li:last-child { border-bottom: 0; }
 .timeline-point { position: absolute; left: -4px; top: calc(50% - 4px); width: 9px; height: 9px; border: 1px solid var(--border-strong); background: var(--bg); border-radius: 50%; z-index: 1; transition: background 220ms,border-color 220ms; }
-.timeline-active .timeline-point { background: var(--accent); border-color: var(--accent); }
+.timeline-active .timeline-point { background: var(--signal); border-color: var(--signal); }
 .timeline-number { font: 500 10px var(--font-mono); color: var(--subtle); }
 .career-timeline h3 { font: 500 16px/1.5 var(--font-body); margin: 0; flex: 1; }
 .timeline-specialty { font: 500 8px var(--font-mono); letter-spacing: .1em; color: var(--accent); padding: 7px 9px; border: 1px solid var(--accent-border); }
@@ -32,21 +32,16 @@
 .flow-canvas { width: 100%; position: relative; height: 176px; }
 .flow-connections { position: absolute; inset: 0; width: 100%; height: 170px; overflow: visible; pointer-events: none; }
 .flow-connections path { fill: none; stroke-width: 1; }
-.flow-traversed { stroke: var(--accent); opacity: .75; }
-.flow-return { stroke: var(--violet-ink); stroke-dasharray: 4 5; opacity: .65; color: var(--violet-ink); }
+.flow-traversed { stroke: var(--signal); opacity: .75; }
+.flow-return { stroke: var(--accent); stroke-dasharray: 4 5; opacity: .65; color: var(--accent); }
 .flow-connections text { font: 400 7px var(--font-mono); letter-spacing: .06em; fill: var(--subtle); }
 .diagram-nodes { display: grid; position: relative; z-index: 1; }
 .diagram-node { display: flex; flex-direction: column; align-items: center; gap: 14px; background: none; border: 0; padding: 0 var(--space-2); min-height: 118px; touch-action: pan-x pan-y; }
 .diagram-node-index { display: block; min-height: 16px; font: 400 8px/16px var(--font-mono); color: var(--subtle); }
-.diagram-shape { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--violet-border); background: var(--surface-deep); color: var(--violet-ink); border-radius: 6px; transition: background var(--fast),border-color var(--fast),color var(--fast); }
 .diagram-node-label { font-size: 10px; line-height: 1.5; color: var(--text-secondary); }
-.diagram-node.selected .diagram-shape { border-color: var(--accent); color: var(--accent); background: var(--surface-active); }
+.diagram-node.selected .diagram-shape { border-color: var(--signal); color: var(--signal); background: var(--surface-active); }
 .diagram-node.selected .diagram-node-label { color: var(--text); }
-.diagram-node:focus-visible .diagram-shape { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
-.diagram-mcp .diagram-shape { border-radius: 50%; }
-.diagram-react .diagram-shape { border-radius: 2px; transform: rotate(45deg); }
-.diagram-react .diagram-shape>span { transform: rotate(-45deg); }
-.diagram-orchestrator .diagram-shape { border-radius: 14px 3px; }
+.diagram-node:focus-visible .diagram-shape { border-color: var(--signal); box-shadow: 0 0 0 3px var(--signal-soft); }
 .flow-controls .project-play { gap: var(--space-2); padding-inline: var(--space-3); font-size: 10px; }
 .diagram-note { font-size: 11px; line-height: 1.8; color: var(--muted); border-top: 1px solid var(--border); padding-top: var(--space-4); margin-top: var(--space-5); }
 .architecture-text { margin-top: var(--space-4); font-size: 12px; color: var(--text-secondary); }
@@ -76,7 +71,7 @@
   .capability-layout { grid-template-columns: 1fr; gap: var(--space-5); margin-top: var(--space-6); }
   .capability-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); }
   .capability-tabs button { min-height: 58px; border: 1px solid var(--border); padding: 10px 12px; border-radius: var(--radius); font-size: 11px; gap: var(--space-2); }
-  .capability-tabs button[aria-selected=true] { padding-left: 12px; background: var(--accent-soft); }
+  .capability-tabs button[aria-selected=true] { padding-left: 12px; background: var(--signal-soft); }
   .capability-panel { min-height: 310px; padding: var(--space-6); }
   .capability-content h3 { font-size: 27px; }
   .experience { gap: var(--space-6); }

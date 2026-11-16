@@ -1,12 +1,12 @@
 /* One motion vocabulary: connect, transmit, settle. No decorative particle systems. */
-:root { --signal-travel: 1100ms; --signal-connect: 480ms; --signal-rest: #00F5D42B; }
+:root { --signal-travel: 1100ms; --signal-connect: 480ms; --signal-rest: #DFA87838; }
 .neural-constellation { position: absolute; inset: 0; pointer-events: none; mask-image: linear-gradient(90deg,#0001,#0004 44%,#000 74%); }
 .neural-constellation canvas,.constellation-static { position: absolute; inset: 0; width: 100%; height: 100%; }
 .neural-constellation canvas { opacity: 0; }
 .neural-constellation[data-canvas=true] canvas { opacity: 1; }
 .neural-constellation[data-canvas=true] .constellation-static { visibility: hidden; }
 .constellation-static path { fill: none; stroke: var(--signal-rest); stroke-width: .7; vector-effect: non-scaling-stroke; }
-.constellation-static path.secondary { stroke: #7000FF42; }
+
 .constellation-static circle { fill: var(--accent); opacity: .4; }
 .constellation-coordinate { position: absolute; right: 6.5%; font: 400 7px var(--font-mono); letter-spacing: .16em; color: var(--subtle); }
 .coordinate-top { top: 32px; }
@@ -17,19 +17,23 @@
 .hero-bottom { z-index: 1; }
 .signal-cursor-diamond { width: 7px; height: 7px; background: var(--accent); rotate: 45deg; box-shadow: 0 0 9px var(--accent-glow); }
 .signal-track,.signal-pulse { fill: none; vector-effect: non-scaling-stroke; }
-.signal-track { stroke: var(--violet-ink); stroke-width: 1; opacity: .35; }
-.signal-pulse { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 9 91; stroke-dashoffset: 9; opacity: 0; }
-.signal-secondary .signal-track { stroke: var(--violet-ink); stroke-dasharray: 3 3; }
-.signal-secondary .signal-pulse { stroke: var(--violet-ink); }
-.signal-node-shell { position: relative; width: 44px; height: 44px; display: grid; place-items: center; flex: none; border: 1px solid var(--violet-border); border-radius: 50%; background: var(--surface-deep); color: var(--violet-ink); transition: border-color var(--fast),background var(--fast),box-shadow var(--fast); }
+.signal-track { stroke: var(--accent); stroke-width: 1; opacity: .35; }
+.signal-pulse { stroke: var(--signal); stroke-width: 1.6; stroke-dasharray: 9 91; stroke-dashoffset: 9; opacity: 0; }
+.signal-secondary .signal-track { stroke: var(--accent); stroke-dasharray: 3 3; }
+.signal-secondary .signal-pulse { stroke: var(--signal); }
+.liquid-mark { overflow: visible; }
+.liquid-mark-signal { fill: var(--signal); }
+.hero-edition { color: var(--subtle); font-size: 7px; letter-spacing: .15em; }
+.hero-line:first-child>span { background: linear-gradient(105deg,var(--text) 48%,var(--accent)); background-clip: text; -webkit-background-clip: text; color: transparent; }
+.cursor-core:not([data-state=default]) .signal-cursor-diamond { background: var(--signal); box-shadow: 0 0 8px var(--signal-soft); }
+.signal-node-shell { position: relative; width: 44px; height: 44px; display: grid; place-items: center; flex: none; border: 1px solid var(--accent-border); border-radius: 50%; background: var(--surface-deep); color: var(--accent); transition: border-color var(--fast),background var(--fast),box-shadow var(--fast); }
 .signal-node-shell::after { content: ''; position: absolute; inset: 5px; border: 1px solid currentColor; border-radius: 50%; opacity: .14; }
 .signal-node-core { width: 5px; height: 5px; background: currentColor; rotate: 45deg; }
-.signal-node-shell[data-selected=true] { border-color: var(--accent); color: var(--accent); background: var(--surface-active); box-shadow: 0 0 16px #00F5D414; }
+.signal-node-shell[data-selected=true] { border-color: var(--signal); color: var(--signal); background: var(--surface-active); box-shadow: 0 0 12px var(--signal-soft); }
 .signal-node-shell[data-selected=true]::after { opacity: .4; }
 .section-signal { display: inline-flex; width: 180px; min-width: 0; flex: 0 1 180px; }
 .section-signal svg { width: 100%; height: 20px; overflow: visible; }
-.section-signal circle { fill: var(--accent); opacity: .55; }
-.section-signal[data-motion=true] .signal-pulse { animation: signal-transmit var(--signal-travel) var(--ease-out) 1 both; }
+.section-signal circle { fill: var(--signal); opacity: .7; }
 .section-signal[data-inview=true] .signal-track { stroke: var(--accent); }
 .project-network { position: relative; padding-top: var(--space-6); }
 .network-caption { display: flex; justify-content: space-between; gap: 12px; color: var(--subtle); font: 400 7px/1.6 var(--font-mono); letter-spacing: .08em; }
@@ -40,33 +44,26 @@
 .network-node { display: flex; flex-direction: column; align-items: center; gap: 12px; min-height: 116px; padding: 48px 2px 2px; border: 0; background: none; color: var(--text-secondary); font: 400 10px/1.4 var(--font-mono); touch-action: manipulation; }
 .network-node:nth-child(2) { padding-top: 14px; }
 .network-node .signal-node-shell { width: 48px; height: 48px; }
-.network-node.selected { color: var(--accent); }
-.network-node:active .signal-node-shell { border-color: var(--accent); background: var(--surface-active); }
+.network-node.selected { color: var(--signal); }
+.network-node:active .signal-node-shell { border-color: var(--signal); background: var(--surface-active); }
 .network-node:focus-visible { outline-offset: -1px; border-radius: var(--radius); }
 .network-explanation { min-height: 60px; margin: 0; padding-block: var(--space-2) var(--space-4); font-size: 11px; line-height: 1.7; color: var(--muted); }
 .network-explanation strong { font-weight: 500; color: var(--text-secondary); }
 .project-network[data-motion=true] .signal-track { animation: signal-connect var(--signal-connect) var(--ease-out) both; }
-.project-card:focus-within .project-network[data-motion=true] .signal-pulse { animation: signal-transmit var(--signal-travel) var(--ease) 1 both; animation-delay: calc(var(--signal-order) * 150ms); }
-.project-card:focus-within .signal-track { stroke: var(--accent); opacity: .65; }
-.project-card:focus-within .card-arrow { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+.project-card:focus-within .signal-track { stroke: var(--accent); opacity: .85; }
+.project-card:focus-within .card-arrow { background: var(--signal); color: var(--bg); border-color: var(--signal); }
 .project-card:focus-within h3 { transform: translateX(3px); }
 .project-network[data-selected="0"] .signal-connection:first-child .signal-track,.project-network[data-selected="1"] .signal-track,.project-network[data-selected="2"] .signal-connection:nth-child(2) .signal-track { stroke: var(--accent); opacity: .8; }
 .lab-connections { position: absolute; top: 101px; left: 60px; width: calc(100% - 120px); min-width: 650px; height: 4px; pointer-events: none; overflow: visible; }
-.lab-nodes::before { display: none; }
 .lab-node-icon { width: 62px; height: 62px; transform: none; }
-.lab-node-icon>span { transform: none; }
 .lab-shell[data-playing=true] .signal-pulse,.flow-canvas[data-playing=true] .signal-pulse { animation: signal-transmit 1800ms linear infinite; }
-.flow-connections .signal-track { stroke: var(--violet-ink); opacity: .4; }
-.diagram-shape { border-radius: 50%; transform: none; }
-.diagram-react .diagram-shape,.diagram-mcp .diagram-shape,.diagram-orchestrator .diagram-shape { border-radius: 50%; transform: none; }
-.diagram-react .diagram-shape>span { transform: none; }
+.flow-connections .signal-track { stroke: var(--accent); opacity: .4; }
 [data-motion=false] .signal-pulse { animation: none!important; opacity: 0; }
 @keyframes signal-transmit { 0% { stroke-dashoffset: 9; opacity: 0; } 12% { opacity: .9; } 85% { opacity: .9; } 100% { stroke-dashoffset: -100; opacity: 0; } }
 @keyframes signal-connect { from { stroke-dasharray: 100; stroke-dashoffset: 100; } to { stroke-dasharray: 100; stroke-dashoffset: 0; } }
 @media (hover:hover) and (pointer:fine) {
-  .project-card:hover .project-network[data-motion=true] .signal-pulse { animation: signal-transmit var(--signal-travel) var(--ease) 1 both; animation-delay: calc(var(--signal-order) * 150ms); }
-  .project-card:hover .signal-track { stroke: var(--accent); opacity: .65; }
-  .network-node:hover .signal-node-shell { border-color: var(--accent); color: var(--accent); }
+  .project-card:hover .signal-track { stroke: var(--accent); opacity: .85; }
+  .network-node:hover .signal-node-shell { border-color: var(--signal); color: var(--signal); }
 }
 @media (max-width:850px) {
   .section-signal { width: 100px; flex-basis: 100px; }
@@ -75,6 +72,7 @@
   .network-explanation { min-height: 78px; }
 }
 @media (max-width:620px) {
+  .hero-edition { display: none; }
   .neural-constellation { mask-image: linear-gradient(90deg,transparent,#0002 45%,#0006); }
   .constellation-coordinate { display: none; }
   .section-signal { max-width: 100px; }

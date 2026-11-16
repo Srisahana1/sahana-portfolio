@@ -18,8 +18,8 @@ export default function ProjectNetworkPreview({ index, title }: { index: number;
   return <div className={`project-network network-${index}`} ref={root} data-selected={selected ?? ''} role="group" aria-label={`${title} network preview`}>
     <div className="network-caption"><span>CONNECTED SYSTEM / 0{index + 1}</span><span>SELECT A NODE</span></div>
     <div className="network-graph">
-      <svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true"><SignalConnection d="M50 60 L150 32" order={0}/><SignalConnection d="M150 32 L250 60" order={1}/>{index === 2 && <SignalConnection className="signal-secondary" d="M250 60 Q150 110 50 60" order={2}/>}</svg>
-      <div className="network-nodes">{stages.map(([name], node) => <button key={name} ref={element => { if (element) nodes.current[node] = element; }} className={`network-node ${selected === node ? 'selected' : ''}`} aria-pressed={selected === node} aria-controls={id} aria-label={`${title}: ${name}`} data-cursor="explore" onClick={() => setSelected(node)} onKeyDown={event => {
+      <svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true"><SignalConnection d="M50 60 C85 60 112 32 150 32" order={0} nodes={[0,1]}/><SignalConnection d="M150 32 C188 32 215 60 250 60" order={1} nodes={[1,2]}/>{index === 2 && <SignalConnection className="signal-secondary" d="M250 60 Q150 110 50 60" order={2} nodes={[2,0]}/>}</svg>
+      <div className="network-nodes">{stages.map(([name], node) => <button key={name} ref={element => { if (element) nodes.current[node] = element; }} className={`network-node ${selected === node ? 'selected' : ''}`} aria-pressed={selected === node} aria-controls={id} aria-label={`${title}: ${name}`} data-cursor="explore" data-signal-node={node} onFocus={() => setSelected(node)} onClick={() => setSelected(node)} onKeyDown={event => {
         let next = node;
         if (event.key === 'ArrowRight') next = (node + 1) % 3;
         else if (event.key === 'ArrowLeft') next = (node + 2) % 3;

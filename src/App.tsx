@@ -7,7 +7,7 @@ import { projects, type Project } from './data';
 import portraitSmall from './assets/profile-small.webp';
 import NeuralConstellation from './NeuralConstellation';
 import ProjectNetworkPreview from './ProjectNetworkPreview';
-import { SectionSignal } from './Signals';
+import { LiquidMark, SectionSignal } from './Signals';
 
 const ProjectArchitecture = lazy(() => import('./ProjectArchitecture'));
 const medium = 'https://medium.com/@ssahana1703';
@@ -22,7 +22,7 @@ function Hero() {
     <NeuralConstellation/>
     <div className="hero-layout wrap">
       <div className="hero-content">
-        <div className="eyebrow"><span className="live-dot"/> AI SYSTEMS / HUMAN INTENT <span className="eyebrow-line"/></div>
+        <div className="eyebrow"><span className="live-dot"/> LIQUID INTELLIGENCE <span className="eyebrow-line"/><span className="hero-edition">ENGINEERED SYSTEMS / 01</span></div>
         <p className="hero-intro">Hi, I’m Sahana.</p>
         <h1 id="hero-title"><span className="hero-line"><span>Engineering Intelligence<span className="accent">.</span></span></span><span className="hero-line hero-muted"><span>Building What Comes Next<span className="accent">.</span></span></span></h1>
         <p className="hero-subtitle">Senior AI/ML Engineer <span>|</span> Generative AI <span>|</span> Agentic AI <span>|</span> Enterprise AI Architecture</p>
@@ -99,7 +99,7 @@ function Contact() {
     <div className="email-line"><a href="mailto:Sahanak9403@gmail.com">Sahanak9403@gmail.com <ArrowUpRight size={20}/></a><button onClick={copy} aria-label={copied ? 'Email copied' : 'Copy email address'}>{copied ? <Check size={17}/> : <Copy size={17}/>}<span aria-live="polite">{copied ? 'Copied!' : 'Copy email'}</span></button></div>
     {copyError && <p className="copy-error" role="status">Select the email address above to copy it, or open your email app.</p>}
     <div className="contact-links"><a href="https://github.com/Srisahana1" target="_blank" rel="noreferrer"><Github size={19}/><span><small>VIEW GITHUB</small>Public repositories</span><ArrowUpRight size={16}/></a><a href="https://www.linkedin.com/in/sahana-s-k-7308a1330/" target="_blank" rel="noreferrer"><Linkedin size={19}/><span><small>CONNECT ON LINKEDIN</small>Let’s connect</span><ArrowUpRight size={16}/></a><a href={medium} target="_blank" rel="noreferrer"><BookOpen size={19}/><span><small>READ ON MEDIUM</small>@ssahana1703</span><ArrowUpRight size={16}/></a><a href="tel:+19096194929"><Phone size={19}/><span><small>CALL</small>+1 (909) 619-4929</span><ArrowUpRight size={16}/></a></div>
-    <footer><a className="brand" href="#hero"><span className="brand-symbol">✳</span> SAHANA <i>/</i> AI SYSTEMS</a><span>CURIOUS MIND. PURPOSEFUL ENGINEERING.</span><a href="#hero">BACK TO TOP <ArrowUpRight size={13}/></a></footer>
+    <footer><a className="brand" href="#hero"><span className="brand-symbol"><LiquidMark/></span> SAHANA <i>/</i> AI SYSTEMS</a><span>CURIOUS MIND. PURPOSEFUL ENGINEERING.</span><a href="#hero">BACK TO TOP <ArrowUpRight size={13}/></a></footer>
   </div></section>;
 }
 
@@ -138,7 +138,7 @@ export default function App() {
   }, [menu]);
   const visibleProjects = projects.map((item, index) => ({ item, index })).filter(({ index }) => filter === 'All projects' || (filter === 'RAG' && index === 0) || (filter === 'Agents' && index > 1) || (filter === 'MCP' && index === 1));
   return <><a className="skip-link" href="#main">Skip to content</a><Cursor/>
-    <header className="header"><a className="brand" href="#hero" aria-label="Sahana home"><span className="brand-symbol">✳</span><span>SAHANA <i>/</i> AI SYSTEMS<small>ENGINEERED FOR IMPACT</small></span></a>
+    <header className="header"><a className="brand" href="#hero" aria-label="Sahana home"><span className="brand-symbol"><LiquidMark/></span><span>SAHANA <i>/</i> AI SYSTEMS<small>ENGINEERED FOR IMPACT</small></span></a>
       <nav ref={navigation} id="main-navigation" className={menu ? 'open' : ''} aria-label="Main navigation">{[['about', 'About'], ['work', 'Projects'], ['lab', 'Architecture'], ['contact', 'Contact']].map(([id, label]) => <a key={id} className={active === id ? 'active' : ''} aria-current={active === id ? 'location' : undefined} href={`#${id}`} onClick={() => setMenu(false)}>{label}</a>)}<MagneticLink className="nav-cta" href="mailto:Sahanak9403@gmail.com">LET’S TALK <ArrowUpRight size={15}/></MagneticLink></nav>
       <button ref={toggle} className="menu-toggle" aria-controls="main-navigation" aria-expanded={menu} aria-label={menu ? 'Close navigation' : 'Open navigation'} onClick={event => {
         setMenu(value => !value);

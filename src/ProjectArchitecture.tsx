@@ -2,7 +2,7 @@ import { useEffect, useId, useRef } from 'react';
 import { ArrowLeft, ArrowRight, Pause, Play, Code2 } from 'lucide-react';
 import { SwipeRail, useFlowPlayback, centerFlowNode } from './Interactions';
 import { projects } from './data';
-import { SignalConnection, SignalNode } from './Signals';
+import { SignalConnection, SignalNode, useSignalSurface } from './Signals';
 
 const flows = [
   { kind: 'rag', note: 'Ingestion builds the index. Evaluation is a separate workflow, shown with a dashed connection.', stages: [
@@ -42,6 +42,7 @@ const flows = [
 
 export default function ProjectArchitecture({ index }: { index: number }) {
   const root = useRef<HTMLDivElement>(null);
+  useSignalSurface(root);
   const id = useId().replace(/:/g, '');
   const flow = flows[index];
   const { step, playing, animating, select, toggle } = useFlowPlayback(flow.stages.length, root);

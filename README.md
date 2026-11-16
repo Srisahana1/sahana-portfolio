@@ -1,6 +1,6 @@
-# Sahana — Neural Constellation Portfolio
+# Sahana — Liquid Intelligence Portfolio
 
-A static portfolio built with React, TypeScript, Vite, and Tailwind CSS 3. The site uses native scrolling, an owner-provided portrait, and the Obsidian / Electric Aqua / Deep Violet palette.
+A static portfolio built with React, TypeScript, Vite, and Tailwind CSS 3. Liquid Intelligence combines Obsidian (`#0D1014`), Dark Titanium (`#1B2329`), Liquid Copper (`#DFA878`), Glacial Mint (`#A5F3D1`), Warm Pearl (`#F2F0EB`), and Steel Gray (`#A9B2B9`). The site uses native scrolling and an owner-provided portrait.
 
 ## Local development
 
@@ -24,9 +24,10 @@ In Windows PowerShell with execution-policy restrictions, use `npm.cmd` in place
 
 ## Experience
 
-- A fixed, sparse Canvas 2D constellation forms behind the hero. Nearby nodes respond to the pointer with illumination and bounded signal pulses. Its single rendering loop stops offscreen, in hidden tabs, and with reduced motion; touch devices and unavailable Canvas use static SVG artwork.
-- The signal-emitter cursor uses a small aqua diamond. Section motifs, project previews, and architecture diagrams share reusable `SignalNode` and `SignalConnection` components.
-- Each project preview has three touch-friendly nodes with explanations and arrow-key controls. Card activation transmits a finite signal on hover or keyboard focus; no continuous project animation is needed.
+- A sparse Liquid Intelligence network forms behind the hero: curved copper connections carry bounded mint signals. The Canvas renderer reads the CSS palette on resize. Its single loop stops offscreen, in hidden tabs, and with reduced motion; touch devices and unavailable Canvas use static SVG artwork.
+- The custom copper diamond cursor turns mint on interactive elements. A custom Liquid Intelligence mark, metallic heading treatment, and asymmetric titanium cards complete the visual identity.
+- Section motifs, project previews, and architecture diagrams share reusable `SignalNode` and `SignalConnection` components. Native Web Animations replay finite mint pulses on section entry, hover, focus, and taps, including repeated taps on the same node. Signals cancel when hidden, offscreen, or disabled by motion preferences.
+- Each project preview has three touch-friendly nodes with explanations and arrow-key controls. Node activation sends signals through the relevant connections; no continuous project animation is needed.
 - Space Grotesk, Inter, and JetBrains Mono are self-hosted. Their licenses are included under `public/licenses/fonts`.
 - The original hero photograph uses a compact 24 KB WebP asset. Its 3:4 frame is 160px wide on desktop and 120px on phones, with configurable `--portrait-position` and a matching preload.
 - All four public GitHub projects include case studies and lazy-loaded SVG architecture walkthroughs with playback, keyboard controls, native touch swiping, and full text alternatives.
@@ -38,7 +39,7 @@ In Windows PowerShell with execution-policy restrictions, use `npm.cmd` in place
 
 Public project content and illustrative architecture patterns are explicitly identified. Content sources and verification notes are in `docs`.
 
-The visual implementation is in `src/NeuralConstellation.tsx`, `src/Signals.tsx`, `src/ProjectNetworkPreview.tsx`, and `src/signals.css`. No animation library or WebGL dependency is required.
+The visual implementation is in `src/NeuralConstellation.tsx`, `src/liquidGeometry.ts`, `src/Signals.tsx`, `src/ProjectNetworkPreview.tsx`, and `src/signals.css`. Colors are centralized in `src/portfolio.css` with matching Tailwind aliases. No animation library or WebGL dependency is required.
 
 ## GitHub Pages
 

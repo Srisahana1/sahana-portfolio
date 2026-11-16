@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, Pause, Play } from 'lucide-react';
 import { labs } from './data';
 import { SwipeRail, useFlowPlayback, centerFlowNode } from './Interactions';
-import { SignalConnection, SignalNode } from './Signals';
+import { SignalConnection, SignalNode, useSignalSurface } from './Signals';
 
 export default function ArchitectureLab() {
   const [lab, setLab] = useState(0);
   const panel = useRef<HTMLDivElement>(null);
+  useSignalSurface(panel);
   const flow = labs[lab];
   const { step: stage, playing, animating, select, toggle } = useFlowPlayback(flow.nodes.length, panel);
   useEffect(() => {

@@ -4,10 +4,10 @@ export default {
     extend: {
       colors: {
         obsidian: 'var(--bg)',
-        slate: 'var(--surface)',
-        aqua: 'var(--accent)',
-        ice: 'var(--text)',
-        violet: 'var(--violet)',
+        titanium: 'var(--surface)',
+        copper: 'var(--accent)',
+        pearl: 'var(--text)',
+        mint: 'var(--signal)',
       },
       fontFamily: {
         sans: ['Inter', 'Arial', 'sans-serif'],
